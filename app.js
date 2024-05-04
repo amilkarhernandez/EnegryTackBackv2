@@ -6,8 +6,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 //Routes
-const UsuariosRoutes = require("./src/routes/UserRoutes");
-const ListaConsumosRoutes = require("./src/routes/ListaConsumosRoutes");
+const listaConsumosRoutes = require("./src/routes/consumosRoute");
 
 const app = express();
 
@@ -31,15 +30,13 @@ app.get("/status", (req, res) => {
 });
 
 //Conexion a base de datos
-let MONGODB_URI = `mongodb://${process.env.BD_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.MONGO_DB}?retryWrites=true&authSource=admin`;
+let MONGODB_URI = `mongodb://${process.env.DB_HOST}/${process.env.MONGO_DB}?retryWrites=true`;
 
+//useUnifiedTopology: true, useNewUrlParser: true,
 mongoose
-  .connect(MONGODB_URI, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  })
+  .connect(MONGODB_URI)
   .then(() => {
-    console.log("Base de Datos Connected");
+    console.log("Base de Datos Conectada");
   })
   .catch((err) => {
     console.log(err);
@@ -47,8 +44,7 @@ mongoose
   });
 
 //Setting Routes
-app.use("/api", UsuariosRoutes);
-app.use("/api", ListaConsumosRoutes);
+app.use("/api", listaConsumosRoutes);
 
 //Export
 module.exports = app;
