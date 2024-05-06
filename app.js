@@ -32,7 +32,7 @@ app.get("/status", (req, res) => {
 //Conexion a base de datos
 let MONGODB_URI = `mongodb://${process.env.DB_HOST}/${process.env.MONGO_DB}?retryWrites=true`;
 
-//useUnifiedTopology: true, useNewUrlParser: true,
+//useUnifiedTopology: true, useNewUrlParser: true, DEPRECADO
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
